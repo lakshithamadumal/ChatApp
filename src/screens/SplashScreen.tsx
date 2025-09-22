@@ -29,7 +29,7 @@ export default function Splash() {
       <CircleShape
         width={250}
         height={250}
-        backgroundColor="#0f172a"
+        fillColor="#0f172a"
         borderRadius={999}
         topValue={-5}
         leftValue={-85}
@@ -37,7 +37,7 @@ export default function Splash() {
       <CircleShape
         width={200}
         height={200}
-        backgroundColor="#1e293b"
+        fillColor="#1e293b"
         borderRadius={999}
         topValue={-55}
         leftValue={45}

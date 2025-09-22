@@ -4,35 +4,26 @@ interface Circle {
   width: number;
   height: number;
   borderRadius: number;
-  backgroundColor: string;
+  fillColor: string;
   topValue?: number;
   leftValue?: number;
   rightValue?: number;
   bottomValue?: number;
 }
 
-export default function CircleShape({
-  width,
-  height,
-  borderRadius,
-  backgroundColor,
-  topValue,
-  leftValue,
-  rightValue,
-  bottomValue,
-}: Circle) {
+export default function CircleShape(c: Circle) {
   return (
     <View
       style={{
-        width: width,
-        height: height,
-        borderRadius: borderRadius,
-        backgroundColor: backgroundColor,
+        width: c.width,
+        height: c.height,
+        borderRadius: c.borderRadius,
         position: "absolute",
-        ...(topValue !== undefined && { top: topValue }),
-        ...(leftValue !== undefined && { left: leftValue }),
-        ...(rightValue !== undefined && { right: rightValue }),
-        ...(bottomValue !== undefined && { bottom: bottomValue }),
+        ...(c.fillColor !== undefined && { backgroundColor: c.fillColor }),
+        ...(c.topValue !== undefined && { top: c.topValue }),
+        ...(c.leftValue !== undefined && { left: c.leftValue }),
+        ...(c.rightValue !== undefined && { right: c.rightValue }),
+        ...(c.bottomValue !== undefined && { bottom: c.bottomValue }),
       }}
     ></View>
   );
