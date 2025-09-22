@@ -4,23 +4,30 @@ import {
   StyleSheet,
   Text,
   View,
-  Animated,
 } from "react-native";
+import Animated from "react-native-reanimated";
 import { SafeAreaView } from "react-native-safe-area-context";
 import "../../global.css";
 import CircleShape from "../components/CircleShape";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
+import {
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from "react-native-reanimated";
 
 export default function Splash() {
-  const fadeIn = useRef(new Animated.Value(0)).current;
+  const opacity = useSharedValue(0);
 
   useEffect(() => {
-    Animated.timing(fadeIn, {
-      toValue: 1,
-      duration: 2000,
-      useNativeDriver: true,
-    }).start();
-  }, [fadeIn]);
+    opacity.value = withTiming(1, { duration: 1000 });
+  }, []);
+
+  const animatedStyle = useAnimatedStyle(() => {
+    return {
+      opacity: opacity.value,
+    };
+  });
 
   return (
     <SafeAreaView style={styles.container}>
@@ -29,27 +36,27 @@ export default function Splash() {
       <CircleShape
         width={250}
         height={250}
-        fillColor="#0f172a"
         borderRadius={999}
-        topValue={-5}
-        leftValue={-85}
-      />
-      <CircleShape
-        width={200}
-        height={200}
-        fillColor="#1e293b"
-        borderRadius={999}
-        topValue={-55}
-        leftValue={45}
+        className="bg-slate-900"
+        topValue={-10}
+        leftValue={-80}
       />
 
-      <Animated.View style={{ opacity: fadeIn }}>
+      <CircleShape
+        width={250}
+        height={250}
+        borderRadius={999}
+        className="bg-slate-900"
+        topValue={-70}
+        leftValue={50}
+      />
+
+      <Animated.View style={animatedStyle}>
         <Image
           source={require("../../assets/logo.png")}
           style={{ height: 150, width: 150 }}
         />
       </Animated.View>
-
       <View style={styles.bottomContainer}>
         <Text style={styles.companyName}>
           POWERD BY: {process.env.EXPO_PUBLIC_APP_OWNER}

@@ -4,7 +4,8 @@ interface Circle {
   width: number;
   height: number;
   borderRadius: number;
-  fillColor: string;
+  fillColor?: string;
+  className?: string;
   topValue?: number;
   leftValue?: number;
   rightValue?: number;
@@ -14,6 +15,7 @@ interface Circle {
 export default function CircleShape(c: Circle) {
   return (
     <View
+      className={`${c.className ?? ""}`}
       style={{
         width: c.width,
         height: c.height,
