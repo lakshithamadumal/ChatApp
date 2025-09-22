@@ -10,7 +10,7 @@ import {
   withTiming,
 } from "react-native-reanimated";
 
-export default function Splash() {
+export default function SplashScreen() {
   const opacity = useSharedValue(0);
 
   useEffect(() => {
