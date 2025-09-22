@@ -1,10 +1,4 @@
-import {
-  StatusBar,
-  Image,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { StatusBar, Image, StyleSheet, Text, View } from "react-native";
 import Animated from "react-native-reanimated";
 import { SafeAreaView } from "react-native-safe-area-context";
 import "../../global.css";
@@ -57,14 +51,17 @@ export default function Splash() {
           style={{ height: 150, width: 150 }}
         />
       </Animated.View>
-      <View style={styles.bottomContainer}>
-        <Text style={styles.companyName}>
-          POWERD BY: {process.env.EXPO_PUBLIC_APP_OWNER}
-        </Text>
-        <Text style={styles.appVersion}>
-          VERSION {process.env.EXPO_PUBLIC_APP_VERSION}
-        </Text>
-      </View>
+
+      <Animated.View className="absolute bottom-10" style={animatedStyle}>
+        <View style={styles.bottomContainer}>
+          <Text style={styles.companyName}>
+            POWERD BY: {process.env.EXPO_PUBLIC_APP_OWNER}
+          </Text>
+          <Text style={styles.appVersion}>
+            VERSION {process.env.EXPO_PUBLIC_APP_VERSION}
+          </Text>
+        </View>
+      </Animated.View>
     </SafeAreaView>
   );
 }
@@ -76,8 +73,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   bottomContainer: {
-    position: "absolute",
-    bottom: 20,
     alignItems: "center",
     width: "100%",
   },
