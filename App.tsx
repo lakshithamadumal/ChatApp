@@ -8,7 +8,7 @@ import SignUpScreen from "./src/screens/SignUpScreen";
 import ProfileScreen from "./src/screens/ProfileScreen";
 import SettingScreen from "./src/screens/SettingScreen";
 
-export type RootStackParamList = {
+export type RootStack = {
   SplashScreen: undefined;
   LoginScreen: undefined;
   SignUpScreen: undefined;
@@ -23,12 +23,24 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Splash"
+        initialRouteName="SplashScreen"
         screenOptions={{ headerShown: false }}
       >
-        <Stack.Screen name="SplashScreen" component={SplashScreen} />
-        <Stack.Screen name="LoginScreen" component={LoginScreen} />
-        <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
+        <Stack.Screen
+          name="SplashScreen"
+          component={SplashScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="LoginScreen"
+          component={LoginScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="SignUpScreen"
+          component={SignUpScreen}
+          options={{ headerShown: false }}
+        />
         <Stack.Screen name="ChatScreen" component={ChatScreen} />
         <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
         <Stack.Screen name="SettingScreen" component={SettingScreen} />

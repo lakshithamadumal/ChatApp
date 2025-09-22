@@ -9,12 +9,23 @@ import {
   useSharedValue,
   withTiming,
 } from "react-native-reanimated";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootStack } from "../../App";
+import { runOnJS } from "react-native-worklets";
+
+type props = NativeStackNavigationProp<RootStack, "SplashScreen">;
 
 export default function SplashScreen() {
   const opacity = useSharedValue(0);
+  const navigation = useNavigation<props>();
 
   useEffect(() => {
-    opacity.value = withTiming(1, { duration: 1000 });
+    opacity.value = withTiming(1, { duration: 3000 });
+    runOnJS(() => {
+      console.log("Navigating to SignUpScreen");
+      navigation.replace("SignUpScreen");
+    });
   }, []);
 
   const animatedStyle = useAnimatedStyle(() => {
