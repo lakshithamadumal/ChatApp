@@ -24,7 +24,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator
         initialRouteName="SplashScreen"
-        screenOptions={{ headerShown: false }}
+        screenOptions={{ animation:"fade"}}
       >
         <Stack.Screen
           name="SplashScreen"

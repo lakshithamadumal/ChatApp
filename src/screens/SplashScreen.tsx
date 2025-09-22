@@ -12,7 +12,6 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStack } from "../../App";
-import { runOnJS } from "react-native-worklets";
 
 type props = NativeStackNavigationProp<RootStack, "SplashScreen">;
 
@@ -22,11 +21,14 @@ export default function SplashScreen() {
 
   useEffect(() => {
     opacity.value = withTiming(1, { duration: 3000 });
-    runOnJS(() => {
-      console.log("Navigating to SignUpScreen");
+
+    const timer = setTimeout(() => {
       navigation.replace("SignUpScreen");
-    });
-  }, []);
+    }, 3000);
+    return () => {
+      clearInterval(timer);
+    };
+  }, [navigation, opacity]);
 
   const animatedStyle = useAnimatedStyle(() => {
     return {
