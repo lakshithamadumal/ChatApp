@@ -37,7 +37,7 @@ export default function SplashScreen() {
   });
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container} className="bg-slate-50 dark:bg-slate-800">
       <StatusBar hidden={true} />
 
       <CircleShape
