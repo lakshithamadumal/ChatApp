@@ -36,4 +36,20 @@ export function ThemeProvider({ childern }: { childern: React.ReactNode }) {
       }
     };
   }, [setColorScheme]);
+
+  const preference = async (themeOption: ThemeOption) => {
+    try {
+      if (themeOption === "system") {
+        await AsyncStorage.removeItem(THEME_KEY);
+        setpreference("system");
+        setColorScheme("system");
+      } else {
+        await AsyncStorage.setItem(THEME_KEY, themeOption);
+        setpreference(themeOption);
+        setColorScheme(themeOption);
+      }
+    } catch (error) {
+      console.log("Error saving theme preference:", error);
+    }
+  };
 }
