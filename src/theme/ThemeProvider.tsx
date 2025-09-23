@@ -1,6 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useColorScheme } from "nativewind";
 import React, { createContext, useEffect, useState } from "react";
-import { useColorScheme } from "react-native";
+import { ActivityIndicator } from "react-native";
 
 export type ThemeOption = "light" | "dark" | "system";
 const THEME_KEY = "@app_color_scheme";
@@ -14,19 +15,20 @@ type ThemeContextType = {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ childern }: { childern: React.ReactNode }) {
-  const { getColorScheme, setColorScheme } = useColorScheme();
-  const [getpreference, setpreference] = useState<ThemeOption>("system");
+  const { colorScheme, setColorScheme } = useColorScheme();
+  const [getpreferenceState, setpreferenceState] =
+    useState<ThemeOption>("system");
   const [isReady, setReady] = useState(false);
 
   useEffect(() => {
-    () => {
+    async () => {
       try {
         const SavedTheme = await AsyncStorage.getItem(THEME_KEY);
         if (SavedTheme === "light" || SavedTheme === "dark") {
-          setpreference(SavedTheme);
+          setpreferenceState(SavedTheme);
           setColorScheme(SavedTheme);
         } else {
-          setpreference("system");
+          setpreferenceState("system");
           setColorScheme("system");
         }
       } catch (error) {
@@ -37,19 +39,35 @@ export function ThemeProvider({ childern }: { childern: React.ReactNode }) {
     };
   }, [setColorScheme]);
 
-  const preference = async (themeOption: ThemeOption) => {
+  const setPreference = async (themeOption: ThemeOption) => {
     try {
       if (themeOption === "system") {
         await AsyncStorage.removeItem(THEME_KEY);
-        setpreference("system");
+        setpreferenceState("system");
         setColorScheme("system");
       } else {
         await AsyncStorage.setItem(THEME_KEY, themeOption);
-        setpreference(themeOption);
+        setpreferenceState(themeOption);
         setColorScheme(themeOption);
       }
     } catch (error) {
       console.log("Error saving theme preference:", error);
     }
   };
+
+  if (!isReady) {
+    return <ActivityIndicator style={{ flex: 1 }} />;
+  }
+
+  return (
+    <ThemeContext.Provider
+      value={{
+        preference: getpreferenceState,
+        applied: colorScheme ?? "light",
+        setPreference,
+      }}
+    >
+      {childern}
+    </ThemeContext.Provider>
+  );
 }
