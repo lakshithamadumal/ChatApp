@@ -21,7 +21,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [isReady, setReady] = useState(false);
 
   useEffect(() => {
-    async () => {
+    (async () => {
       try {
         const SavedTheme = await AsyncStorage.getItem(THEME_KEY);
         if (SavedTheme === "light" || SavedTheme === "dark") {
@@ -36,7 +36,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       } finally {
         setReady(true);
       }
-    };
+    })();
   }, [setColorScheme]);
 
   const setPreference = async (themeOption: ThemeOption) => {
