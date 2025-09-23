@@ -24,7 +24,7 @@ export default function SplashScreen() {
     opacity.value = withTiming(1, { duration: 3000 });
 
     const timer = setTimeout(() => {
-      // navigation.replace("SignUpScreen");
+      navigation.replace("SignUpScreen");
     }, 3000);
     return () => {
       clearInterval(timer);
