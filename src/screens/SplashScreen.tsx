@@ -1,4 +1,4 @@
-import { StatusBar, Image, StyleSheet, Text, View } from "react-native";
+import { StatusBar, Image, Text, View } from "react-native";
 import Animated from "react-native-reanimated";
 import { SafeAreaView } from "react-native-safe-area-context";
 import "../../global.css";
@@ -12,6 +12,7 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStack } from "../../App";
+import { useTheme } from "../theme/ThemeProvider";
 
 type props = NativeStackNavigationProp<RootStack, "SplashScreen">;
 
@@ -23,7 +24,7 @@ export default function SplashScreen() {
     opacity.value = withTiming(1, { duration: 3000 });
 
     const timer = setTimeout(() => {
-      navigation.replace("SignUpScreen");
+      // navigation.replace("SignUpScreen");
     }, 3000);
     return () => {
       clearInterval(timer);
@@ -36,8 +37,14 @@ export default function SplashScreen() {
     };
   });
 
+  const {applied} = useTheme();
+  const logo =
+    applied === "dark"
+      ? require("../../assets/logoLight.png")
+      : require("../../assets/logoDark.png");
+
   return (
-    <SafeAreaView style={styles.container} className="bg-slate-50 dark:bg-slate-800">
+    <SafeAreaView className="flex-1 items-center justify-center bg-slate-50 dark:bg-slate-800">
       <StatusBar hidden={true} />
 
       <CircleShape
@@ -60,17 +67,20 @@ export default function SplashScreen() {
 
       <Animated.View style={animatedStyle}>
         <Image
-          source={require("../../assets/logo.png")}
+          source={logo}
           style={{ height: 150, width: 150 }}
         />
       </Animated.View>
 
-      <Animated.View className="absolute bottom-10" style={animatedStyle}>
-        <View style={styles.bottomContainer}>
-          <Text style={styles.companyName}>
+      <Animated.View
+        className="absolute bottom-10 w-full items-center"
+        style={animatedStyle}
+      >
+        <View className="items-center w-full">
+          <Text className="text-xs text-gray-400">
             POWERD BY: {process.env.EXPO_PUBLIC_APP_OWNER}
           </Text>
-          <Text style={styles.appVersion}>
+          <Text className="text-xs text-gray-400">
             VERSION {process.env.EXPO_PUBLIC_APP_VERSION}
           </Text>
         </View>
@@ -78,23 +88,3 @@ export default function SplashScreen() {
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  bottomContainer: {
-    alignItems: "center",
-    width: "100%",
-  },
-  companyName: {
-    fontSize: 12,
-    color: "#888",
-  },
-  appVersion: {
-    fontSize: 12,
-    color: "#888",
-  },
-});
