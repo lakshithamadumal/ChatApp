@@ -1,4 +1,10 @@
-import { KeyboardAvoidingView, Platform, StatusBar } from "react-native";
+import {
+  KeyboardAvoidingView,
+  Platform,
+  StatusBar,
+  View,
+  Image,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import "../../global.css";
 
@@ -10,7 +16,12 @@ export default function ContactScreen() {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         keyboardVerticalOffset={Platform.OS === "ios" ? 100 : 100}
       >
-        
+        <View className="p-5 items-center">
+          <Image
+            source={require("../../assets/logoDark.png")}
+            className="h-40 w-36"
+          />
+        </View>
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
