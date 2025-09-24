@@ -50,10 +50,18 @@ export default function ContactScreen() {
               />
             </View>
           </Pressable>
-          <CountryPicker show={show} lang="en" pickerButtonOnPress={() => {}} 
-          style={{
-            modal: { height: 400 },
-          }}/>
+          <CountryPicker
+            show={show}
+            lang="en"
+            pickerButtonOnPress={(item) => {
+              setCountryCode(item);
+              setShow(false);
+            }}
+
+            style={{
+              modal: { height: 400 },
+            }}
+          />
         </View>
       </KeyboardAvoidingView>
     </SafeAreaView>
