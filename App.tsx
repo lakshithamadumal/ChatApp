@@ -6,6 +6,7 @@ import HomeScreen from "./src/screens/HomeScreen";
 import LoginScreen from "./src/screens/LoginScreen";
 import SignUpScreen from "./src/screens/SignUpScreen";
 import ProfileScreen from "./src/screens/ProfileScreen";
+import AvatarScreen from "./src/screens/AvatarScreen";
 import SettingScreen from "./src/screens/SettingScreen";
 import ContactScreen from "./src/screens/ContactScreen";
 import { ThemeProvider } from "./src/theme/ThemeProvider";
@@ -14,6 +15,7 @@ export type RootStack = {
   SplashScreen: undefined;
   SignUpScreen: undefined;
   ContactScreen: undefined;
+  AvatarScreen: undefined;
   LoginScreen: undefined;
   HomeScreen: undefined;
   ProfileScreen: undefined;
@@ -44,6 +46,12 @@ export default function App() {
           <Stack.Screen
             name="ContactScreen"
             component={ContactScreen}
+            options={{ headerShown: false }}
+          />
+
+          <Stack.Screen
+            name="AvatarScreen"
+            component={AvatarScreen}
             options={{ headerShown: false }}
           />
 
