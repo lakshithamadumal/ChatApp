@@ -15,10 +15,13 @@ import { useState } from "react";
 import { CountryItem, CountryPicker } from "react-native-country-codes-picker";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStack } from "../../App";
+import { useNavigation } from "@react-navigation/native";
 
 type ContactProps = NativeStackScreenProps<RootStack, "AvatarScreen">;
 
 export default function ContactScreen() {
+  const navigation = useNavigation<ContactProps>();
+
   const [show, setShow] = useState(false);
   const [countryCode, setCountryCode] = useState<CountryItem | null>(null);
 
