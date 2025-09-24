@@ -53,7 +53,7 @@ export default function ContactScreen() {
                 />
               </View>
             </Pressable>
-            <CountryPicker
+            {/* <CountryPicker
               show={show}
               lang="en"
               pickerButtonOnPress={(item) => {
@@ -63,20 +63,25 @@ export default function ContactScreen() {
               style={{
                 modal: { height: 400 },
               }}
-            />
+            /> */}
 
             <View className="mt-2 flex flex-row justify-center">
               <TextInput
                 inputMode="tel"
-                className="h-16 font-bold text-lg border-y-4 border-y-green-600 w-[18%]"
+                className="h-16 font-bold text-lg border-y-2 border-y-green-600 w-[18%]"
                 placeholder="+94"
               />
               <TextInput
                 inputMode="tel"
-                className="h-16 font-bold text-lg border-y-4 border-y-green-600 w-[80%] ml-2"
+                className="h-16 font-bold text-lg border-y-2 border-y-green-600 w-[80%] ml-2"
                 placeholder="7********"
               />
             </View>
+          </View>
+          <View className="mt-15 w-full">
+            <Pressable className="justify-center items-center h-14 w-full bg-green-600 rounded-full">
+              <Text className="text-2xl font-bold text-slate-50">Continue</Text>
+            </Pressable>
           </View>
         </View>
       </KeyboardAvoidingView>
