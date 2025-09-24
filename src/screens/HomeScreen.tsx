@@ -1,9 +1,9 @@
 import { View, Text, StyleSheet } from "react-native";
 
-export default function ChatScreen() {
+export default function HomeScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Chat Screen</Text>
+      <Text style={styles.text}>Home Screen</Text>
     </View>
   );
 }
