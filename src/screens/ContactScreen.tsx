@@ -13,11 +13,11 @@ import "../../global.css";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { useState } from "react";
 import { CountryItem, CountryPicker } from "react-native-country-codes-picker";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStack } from "../../App";
 import { useNavigation } from "@react-navigation/native";
 
-type ContactProps = NativeStackScreenProps<RootStack, "AvatarScreen">;
+type ContactProps = NativeStackNavigationProp<RootStack, "ContactScreen">;
 
 export default function ContactScreen() {
   const navigation = useNavigation<ContactProps>();
@@ -87,7 +87,14 @@ export default function ContactScreen() {
           </View>
           <View className="mt-15 w-full">
             <Pressable className="justify-center items-center h-14 w-full bg-green-600 rounded-full">
-              <Text className="text-2xl font-bold text-slate-50">Continue</Text>
+              <Text
+                className="text-2xl font-bold text-slate-50"
+                onPress={() => {
+                  navigation.replace("AvatarScreen");
+                }}
+              >
+                Continue
+              </Text>
             </Pressable>
           </View>
         </View>
