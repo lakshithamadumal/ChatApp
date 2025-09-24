@@ -13,6 +13,10 @@ import "../../global.css";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { useState } from "react";
 import { CountryItem, CountryPicker } from "react-native-country-codes-picker";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { RootStack } from "../../App";
+
+type ContactProps = NativeStackScreenProps<RootStack, "AvatarScreen">;
 
 export default function ContactScreen() {
   const [show, setShow] = useState(false);
