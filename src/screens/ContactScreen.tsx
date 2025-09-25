@@ -12,7 +12,10 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import "../../global.css";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { useState } from "react";
-import { CountryItem, CountryPicker } from "react-native-country-codes-picker";
+import CountryPicker, {
+  Country,
+  CountryCode,
+} from "react-native-country-picker-modal";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStack } from "../../App";
 import { useNavigation } from "@react-navigation/native";
@@ -22,11 +25,12 @@ type ContactProps = NativeStackNavigationProp<RootStack, "ContactScreen">;
 export default function ContactScreen() {
   const navigation = useNavigation<ContactProps>();
 
+  const [countryCode, setCountryCode] = useState<CountryCode>("LK");
+  const [country, setCountry] = useState<Country | null>(null);
   const [show, setShow] = useState(false);
-  const [countryCode, setCountryCode] = useState<CountryItem | null>(null);
 
   return (
-    <SafeAreaView className="flex-1 bg-red-100 items-center">
+    <SafeAreaView className="flex-1 bg-white items-center">
       <StatusBar hidden={true} />
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -46,46 +50,38 @@ export default function ContactScreen() {
             </Text>
           </View>
           <View className="mt-5 w-full">
-            <Pressable
-              className="w-full justify-center items-center h-16 border-b-4 border-b-green-600"
-              onPress={() => setShow(true)}
-            >
-              <View className="flex-row items-center">
-                <Text className="font-bold text-lg">Select Country</Text>
-                <AntDesign
-                  name="caret-down"
-                  size={20}
-                  color="black"
-                  style={{ marginLeft: 8 }}
-                />
-              </View>
-            </Pressable>
-            {/* <CountryPicker
-              show={show}
-              lang="en"
-              pickerButtonOnPress={(item) => {
-                setCountryCode(item);
-                setShow(false);
-              }}
-              style={{
-                modal: { height: 400 },
-              }}
-            /> */}
+            <View className="border-b-2 mb-3 border-b-green-600 justify-center items-center flex-row h-14 my-3">
+              <CountryPicker
+                countryCode={countryCode}
+                withFilter
+                withFlag
+                withCountryNameButton
+                withCallingCode
+                visible={show}
+                onClose={() => setShow(false)}
+                onSelect={(c) => {
+                  setCountryCode(c.cca2);
+                  setCountry(c);
+                  setShow(false);
+                }}
+              />
+            </View>
 
             <View className="mt-2 flex flex-row justify-center">
               <TextInput
                 inputMode="tel"
                 className="h-16 font-bold text-lg border-y-2 border-y-green-600 w-[18%]"
                 placeholder="+94"
+                value={country ? `+${country.callingCode}` : ""}
               />
               <TextInput
                 inputMode="tel"
                 className="h-16 font-bold text-lg border-y-2 border-y-green-600 w-[80%] ml-2"
-                placeholder="7********"
+                placeholder="*********"
               />
             </View>
           </View>
-          <View className="mt-15 w-full">
+          <View className="mt-12 w-full">
             <Pressable className="justify-center items-center h-14 w-full bg-green-600 rounded-full">
               <Text
                 className="text-2xl font-bold text-slate-50"
