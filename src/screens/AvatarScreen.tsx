@@ -1,4 +1,11 @@
-import { StatusBar, Image, View, Text, Pressable } from "react-native";
+import {
+  StatusBar,
+  Image,
+  View,
+  Text,
+  Pressable,
+  FlatList,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as ImagePicker from "expo-image-picker";
 import { useState } from "react";
@@ -19,6 +26,14 @@ export default function AvatarScreen() {
     }
   };
 
+  const avatars = [
+    require("../../assets/avatar/avatar_1.png"),
+    require("../../assets/avatar/avatar_2.png"),
+    require("../../assets/avatar/avatar_3.png"),
+    require("../../assets/avatar/avatar_4.png"),
+    require("../../assets/avatar/avatar_5.png"),
+  ];
+
   return (
     <SafeAreaView className="flex-1 bg-white">
       <StatusBar hidden={true} />
@@ -38,7 +53,38 @@ export default function AvatarScreen() {
             <Pressable
               className="h-[120] w-[120] rounded-full bg-gray-100 justify-center items-center border-2 border-gray-400 border-dashed"
               onPress={pickImage}
-            ></Pressable>
+            >
+              {image ? (
+                <Image
+                  source={{ uri: image }}
+                  className="h-[120] w-[120] rounded-full"
+                />
+              ) : (
+                <View className="items-center">
+                  <Text className="font-bold text-xl text-slate-500">+</Text>
+                  <Text className="font-bold text-xl text-slate-500">
+                    Add Image
+                  </Text>
+                </View>
+              )}
+            </Pressable>
+
+            <Text className="text-lg my-2 text-slate-700 font-bold">
+              Or Select an Avatar
+            </Text>
+            <FlatList
+              data={avatars}
+              keyExtractor={(_, index) => index.toString()}
+              horizontal
+              renderItem={({ item }) => (
+                <Pressable
+                  onPress={() => setImage(Image.resolveAssetSource(item).uri)}
+                  className="m-2"
+                >
+                  <Image source={item} className="h-20 w-20 rounded-full" />
+                </Pressable>
+              )}
+            />
           </View>
         </View>
       </View>
