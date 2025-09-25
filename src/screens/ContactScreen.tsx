@@ -72,6 +72,7 @@ export default function ContactScreen() {
                 inputMode="tel"
                 className="h-16 font-bold text-lg border-y-2 border-y-green-600 w-[18%]"
                 placeholder="+94"
+                editable={false}
                 value={country ? `+${country.callingCode}` : ""}
               />
               <TextInput
