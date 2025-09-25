@@ -5,6 +5,7 @@ import {
   Text,
   Pressable,
   FlatList,
+  TouchableOpacity,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as ImagePicker from "expo-image-picker";
@@ -77,15 +78,24 @@ export default function AvatarScreen() {
               keyExtractor={(_, index) => index.toString()}
               horizontal
               renderItem={({ item }) => (
-                <Pressable
+                <TouchableOpacity
                   onPress={() => setImage(Image.resolveAssetSource(item).uri)}
-                  className="m-2"
                 >
-                  <Image source={item} className="h-20 w-20 rounded-full" />
-                </Pressable>
+                  <Image
+                    source={item}
+                    className="h-20 w-20 rounded-full mx-2 border-2 border-gray-200"
+                  />
+                </TouchableOpacity>
               )}
+              contentContainerStyle={{ paddingHorizontal: 10 }}
+              showsHorizontalScrollIndicator={false}
             />
           </View>
+        </View>
+        <View className="mt-2 w-full px-5">
+          <Pressable className="bg-green-500 h-14 items-center justify-center rounded-full">
+            <Text className="text-white font-bold text-lg">Create Account</Text>
+          </Pressable>
         </View>
       </View>
     </SafeAreaView>
