@@ -29,7 +29,7 @@ export default function App() {
     <ThemeProvider>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="ContactScreen"
+          initialRouteName="SplashScreen"
           screenOptions={{ animation: "fade" }}
         >
           <Stack.Screen

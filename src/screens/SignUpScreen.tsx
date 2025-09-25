@@ -12,8 +12,15 @@ import "../../global.css";
 import { AlertNotificationRoot } from "react-native-alert-notification";
 import { useTheme } from "../theme/ThemeProvider";
 import { FloatingLabelInput } from "react-native-floating-label-input";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootStack } from "../../App";
+
+type SignupProps = NativeStackNavigationProp<RootStack, "SignUpScreen">;
 
 export default function SignUpScreen() {
+  const navigation = useNavigation<SignupProps>();
+
   const { applied } = useTheme();
   const logo =
     applied === "dark"
@@ -47,8 +54,13 @@ export default function SignUpScreen() {
         </SafeAreaView>
         <View className="absolute bottom-5 w-full p-5">
           <Pressable className="bg-green-600 h-14 justify-center items-center rounded-full">
-            <Text className="text-slate-100 dark:text-slate-100 font-bold text-2xl">
-              Next
+            <Text
+              className="text-slate-100 dark:text-slate-100 font-bold text-2xl"
+              onPress={() => {
+                navigation.replace("ContactScreen");
+              }}
+            >
+              Continue
             </Text>
           </Pressable>
         </View>

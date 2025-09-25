@@ -10,8 +10,15 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as ImagePicker from "expo-image-picker";
 import { useState } from "react";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootStack } from "../../App";
+import { useNavigation } from "@react-navigation/native";
+
+type AvatarProps = NativeStackNavigationProp<RootStack, "AvatarScreen">;
 
 export default function AvatarScreen() {
+  const navigation = useNavigation<AvatarProps>();
+
   const [image, setImage] = useState<string | null>(null);
 
   const pickImage = async () => {
@@ -93,7 +100,12 @@ export default function AvatarScreen() {
           </View>
         </View>
         <View className="mt-2 w-full px-5">
-          <Pressable className="bg-green-500 h-14 items-center justify-center rounded-full">
+          <Pressable
+            className="bg-green-500 h-14 items-center justify-center rounded-full"
+            onPress={() => {
+              navigation.replace("HomeScreen");
+            }}
+          >
             <Text className="text-white font-bold text-lg">Create Account</Text>
           </Pressable>
         </View>
